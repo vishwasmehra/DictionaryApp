@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/wordtext"
+    android:layout_width="358dp"
+    android:layout_height="511dp"
+    android:layout_marginBottom="92dp"
+    android:layout_marginEnd="17dp"
+    android:layout_marginStart="13dp"
+    android:layout_marginTop="7dp"
+    android:textAlignment="textStart"
+    android:textColor="@android:color/holo_blue_dark"
+    android:textSize="30sp" />
+
+

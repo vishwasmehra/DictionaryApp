@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -32,58 +33,18 @@ public class homeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         db = new DatabaseHelper(this);
-      et=(EditText) findViewById(R.id.et1);
-      b1=(Button)findViewById(R.id.but1);
+        et = (EditText) findViewById(R.id.et1);
+        b1 = (Button) findViewById(R.id.but1);
 
-      data = new ArrayList<DictObjectModel>();
-      fetchData();
 
-      b1.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-              String st=et.getText().toString();
-              Intent go= new Intent(homeActivity.this, wordDisplay.class);
-              go.putExtra("wd",st);
-              startActivity(go);
-          }
-      });
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String st = et.getText().toString();
+                Intent go = new Intent(homeActivity.this, wordDisplay.class);
+                go.putExtra("wd", st);
+                startActivity(go);
+            }
+        });
     }
-
-
-    public void fetchData() {
-        db = new DatabaseHelper(this);
-        try {
-
-            db.createDataBase();
-            db.openDataBase();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        namelist = new LinkedHashMap<>();
-        int ii;
-        SQLiteDatabase sd = db.getReadableDatabase();
-        Cursor cursor = sd.query("Dictionary1", null, null, null, null, null, null);
-        ii = cursor.getColumnIndex("word");
-        wordcombimelist = new ArrayList<String>();
-        meancombimelist = new ArrayList<String>();
-        while (cursor.moveToNext()) {
-            namelist.put(cursor.getString(ii), cursor.getString(cursor.getColumnIndex("definition")));
-        }
-        Iterator entries = namelist.entrySet().iterator();
-        while(entries.hasNext()) {
-            Map.Entry thisEntry = (Map.Entry) entries.next();
-            wordcombimelist.add(String.valueOf(thisEntry.getKey()));
-            meancombimelist.add("- " + String.valueOf(thisEntry.getValue()));
-        }
-
-        for (int i = 0; i < wordcombimelist.size(); i++) {
-            data.add(new DictObjectModel(wordcombimelist.get(i), meancombimelist.get(i)));
-        }
-       wordDisplay ob = new wordDisplay(data);
-    }
-
-
 }

@@ -1,7 +1,9 @@
 package index1.developer.acadview.com.dictionaryapp;
 
 
-public class DictObjectModel {
+import java.io.Serializable;
+
+public class DictObjectModel implements Serializable {
 
         String word, meaning;
 
